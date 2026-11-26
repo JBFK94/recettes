@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pâtes au poulet à la mexicaine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --amber-50:  #FAEEDA;
+      --amber-200: #EF9F27;
+      --amber-400: #BA7517;
+      --amber-600: #854F0B;
+      --amber-800: #633806;
+      --text-primary: #1a1a18;
+      --text-secondary: #5a5a55;
+      --text-tertiary: #9a9a92;
+      --border-light: rgba(0,0,0,0.08);
+      --bg: #fdfcf8;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text-primary); min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 48px 24px; }
+    .card { background: #fff; border: 0.5px solid var(--border-light); border-radius: 16px; padding: 48px; max-width: 780px; width: 100%; }
+    .recipe-title { font-family: 'Lora', serif; font-size: 28px; font-weight: 500; text-align: center; color: var(--text-primary); margin-bottom: 6px; }
+    .recipe-meta { font-size: 11px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--text-tertiary); text-align: center; margin-bottom: 10px; }
+    .rule { display: flex; align-items: center; gap: 12px; margin: 0 0 36px; }
+    .rule-line { flex: 1; height: 0.5px; background: var(--amber-200); }
+    .rule-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber-400); flex-shrink: 0; }
+    .two-col { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; align-items: start; }
+    .section-label { font-size: 10px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--amber-600); border-bottom: 1.5px solid var(--amber-200); padding-bottom: 6px; margin-bottom: 14px; }
+    .ing-group-label { font-size: 10px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--text-tertiary); margin: 14px 0 6px; }
+    .ing-group-label:first-child { margin-top: 0; }
+    .ing-row { display: flex; justify-content: space-between; align-items: baseline; padding: 7px 0; border-bottom: 0.5px solid var(--border-light); font-size: 13px; gap: 8px; }
+    .ing-row:last-child { border-bottom: none; }
+    .ing-name { color: var(--text-primary); font-weight: 500; }
+    .ing-qty { color: var(--text-secondary); font-size: 12px; white-space: nowrap; }
+    .materiel-block { margin-top: 28px; }
+    .materiel-list { list-style: none; }
+    .materiel-list li { font-size: 13px; color: var(--text-secondary); padding: 6px 0; border-bottom: 0.5px solid var(--border-light); display: flex; align-items: center; gap: 9px; }
+    .materiel-list li:last-child { border-bottom: none; }
+    .mat-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber-200); flex-shrink: 0; }
+    .step { display: flex; gap: 14px; margin-bottom: 20px; align-items: flex-start; }
+    .step:last-child { margin-bottom: 0; }
+    .badge { background: var(--amber-50); color: var(--amber-800); font-size: 12px; font-weight: 500; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .step-body { display: flex; flex-direction: column; gap: 4px; }
+    .step-title { font-size: 12px; font-weight: 500; color: var(--amber-600); text-transform: uppercase; letter-spacing: .06em; }
+    .step-text { font-size: 13.5px; line-height: 1.7; color: var(--text-secondary); }
+    .notes-block { margin-top: 36px; padding-top: 28px; border-top: 0.5px solid var(--border-light); }
+    .note-item { display: flex; gap: 12px; margin-bottom: 14px; align-items: flex-start; }
+    .note-item:last-child { margin-bottom: 0; }
+    .note-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber-200); flex-shrink: 0; margin-top: 7px; }
+    .note-text { font-size: 12.5px; line-height: 1.65; color: var(--text-tertiary); font-style: italic; }
+    .nav-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+    .courses-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      text-decoration: none;
+      transition: color .15s;
+    }
+    .courses-btn:hover { color: var(--amber-600); }
+    .courses-arrow {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 1px solid currentColor;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+        .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--text-tertiary); text-decoration: none; margin-bottom: 0; transition: color .15s; }
+    .back-link:hover { color: var(--amber-600); }
+    .back-arrow { width: 18px; height: 18px; border-radius: 50%; border: 1px solid currentColor; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; }
+    @media (max-width: 680px) { body { padding: 24px 16px; } .card { padding: 28px 20px; border-radius: 12px; } .recipe-title { font-size: 22px; } .two-col { grid-template-columns: 1fr; gap: 28px; } }
+    @media (max-width: 400px) { body { padding: 16px 12px; } .card { padding: 20px 16px; border-radius: 8px; } .recipe-title { font-size: 20px; } .ing-row { font-size: 12px; } .step-text { font-size: 13px; } }
+    @media print { body { padding: 0; background: #fff; } .card { border: none; border-radius: 0; padding: 32px; max-width: 100%; } .back-link { display: none; } }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="nav-row">
+      <a href="index.html" class="back-link"><span class="back-arrow">&#8592;</span>Retour au sommaire</a>
+      <a href="courses-pates-poulet-mexicaine.html" class="courses-btn">Liste de courses <span class="courses-arrow">&#8594;</span></a>
+    </div>
+
+    <h1 class="recipe-title">Pâtes au poulet à la mexicaine</h1>
+    <p class="recipe-meta">4 portions · 35 min</p>
+
+    <div class="rule"><div class="rule-line"></div><div class="rule-dot"></div><div class="rule-line"></div></div>
+
+    <div class="two-col">
+      <div>
+        <p class="section-label">Ingrédients</p>
+
+        <p class="ing-group-label">Pâtes & protéines</p>
+        <div class="ing-row"><span class="ing-name">Penne ou rigatonis</span><span class="ing-qty">400 g</span></div>
+        <div class="ing-row"><span class="ing-name">Blancs de poulet</span><span class="ing-qty">400 g</span></div>
+        <div class="ing-row"><span class="ing-name">Haricots rouges (cuits, égouttés)</span><span class="ing-qty">100 g</span></div>
+
+        <p class="ing-group-label">Légumes & aromates</p>
+        <div class="ing-row"><span class="ing-name">Poivrons rouges</span><span class="ing-qty">2</span></div>
+        <div class="ing-row"><span class="ing-name">Oignon rouge</span><span class="ing-qty">1</span></div>
+        <div class="ing-row"><span class="ing-name">Tomates cerises</span><span class="ing-qty">250 g</span></div>
+        <div class="ing-row"><span class="ing-name">Concentré de tomates</span><span class="ing-qty">42 g</span></div>
+        <div class="ing-row"><span class="ing-name">Bouillon de légumes</span><span class="ing-qty">80 cl</span></div>
+        <div class="ing-row"><span class="ing-name">Jus de citron vert</span><span class="ing-qty">1</span></div>
+        <div class="ing-row"><span class="ing-name">Coriandre fraîche</span><span class="ing-qty">4 brins</span></div>
+        <div class="ing-row"><span class="ing-name">Épices mexicaines</span><span class="ing-qty">14 g</span></div>
+
+        <p class="ing-group-label">Finition</p>
+        <div class="ing-row"><span class="ing-name">Fromage blanc 3 %</span><span class="ing-qty">14 g</span></div>
+        <div class="ing-row"><span class="ing-name">Huile d'olive</span><span class="ing-qty">à convenance</span></div>
+        <div class="ing-row"><span class="ing-name">Sel, poivre</span><span class="ing-qty">à convenance</span></div>
+
+        <div class="materiel-block">
+          <p class="section-label">Matériel</p>
+          <ul class="materiel-list">
+            <li><span class="mat-dot"></span>Grande sauteuse</li>
+            <li><span class="mat-dot"></span>Couteau</li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <p class="section-label">Préparation</p>
+
+        <div class="step">
+          <span class="badge">1</span>
+          <div class="step-body">
+            <span class="step-title">Préparer les ingrédients</span>
+            <p class="step-text">Épépinez et émincez les poivrons. Taillez le poulet en morceaux. Pelez et émincez l'oignon.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="badge">2</span>
+          <div class="step-body">
+            <span class="step-title">Faire revenir</span>
+            <p class="step-text">Dans une grande sauteuse, faites chauffer un filet d'huile d'olive. Faites dorer l'oignon, le poulet et les épices mexicaines.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="badge">3</span>
+          <div class="step-body">
+            <span class="step-title">Ajouter les légumes et les pâtes</span>
+            <p class="step-text">Ajoutez les pâtes, les poivrons, les haricots rouges, le concentré de tomates et les tomates cerises. Versez le bouillon.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="badge">4</span>
+          <div class="step-body">
+            <span class="step-title">Cuire</span>
+            <p class="step-text">Faites cuire 15 min sur feu moyen en remuant de temps en temps. Si le liquide manque en cours de cuisson, ajoutez du bouillon ou de l'eau chaude. Salez et poivrez.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="badge">5</span>
+          <div class="step-body">
+            <span class="step-title">Dresser</span>
+            <p class="step-text">Arrosez du jus de citron vert. Répartissez dans les assiettes, garnissez d'une cuillère de fromage blanc, de tomates cerises coupées en quatre et parsemez de coriandre ciselée. Poivrez.</p>
+          </div>
+        </div>
+
+        <div class="notes-block">
+          <p class="section-label">Notes</p>
+          <div class="note-item"><span class="note-dot"></span><p class="note-text"><strong style="color:var(--text-secondary);font-style:normal">One pot :</strong> Tout cuit dans la même sauteuse — les pâtes absorbent le bouillon et s'imprègnent des saveurs directement.</p></div>
+          <div class="note-item"><span class="note-dot"></span><p class="note-text"><strong style="color:var(--text-secondary);font-style:normal">Variante végétarienne :</strong> Remplacez le poulet par du tofu ferme coupé en dés.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

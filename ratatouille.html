@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ratatouille</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --amber-50:  #FAEEDA;
+      --amber-200: #EF9F27;
+      --amber-400: #BA7517;
+      --amber-600: #854F0B;
+      --amber-800: #633806;
+      --text-primary: #1a1a18;
+      --text-secondary: #5a5a55;
+      --text-tertiary: #9a9a92;
+      --border-light: rgba(0,0,0,0.08);
+      --bg: #fdfcf8;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text-primary); min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 48px 24px; }
+    .card { background: #fff; border: 0.5px solid var(--border-light); border-radius: 16px; padding: 48px; max-width: 780px; width: 100%; }
+    .recipe-title { font-family: 'Lora', serif; font-size: 28px; font-weight: 500; text-align: center; color: var(--text-primary); margin-bottom: 6px; }
+    .recipe-meta { font-size: 11px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--text-tertiary); text-align: center; margin-bottom: 10px; }
+    .rule { display: flex; align-items: center; gap: 12px; margin: 0 0 36px; }
+    .rule-line { flex: 1; height: 0.5px; background: var(--amber-200); }
+    .rule-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber-400); flex-shrink: 0; }
+    .two-col { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; align-items: start; }
+    .section-label { font-size: 10px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--amber-600); border-bottom: 1.5px solid var(--amber-200); padding-bottom: 6px; margin-bottom: 14px; }
+    .ing-group-label { font-size: 10px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--text-tertiary); margin: 14px 0 6px; }
+    .ing-group-label:first-child { margin-top: 0; }
+    .ing-row { display: flex; justify-content: space-between; align-items: baseline; padding: 7px 0; border-bottom: 0.5px solid var(--border-light); font-size: 13px; gap: 8px; }
+    .ing-row:last-child { border-bottom: none; }
+    .ing-name { color: var(--text-primary); font-weight: 500; }
+    .ing-qty { color: var(--text-secondary); font-size: 12px; white-space: nowrap; }
+    .materiel-block { margin-top: 28px; }
+    .materiel-list { list-style: none; }
+    .materiel-list li { font-size: 13px; color: var(--text-secondary); padding: 6px 0; border-bottom: 0.5px solid var(--border-light); display: flex; align-items: center; gap: 9px; }
+    .materiel-list li:last-child { border-bottom: none; }
+    .mat-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber-200); flex-shrink: 0; }
+    .step { display: flex; gap: 14px; margin-bottom: 20px; align-items: flex-start; }
+    .step:last-child { margin-bottom: 0; }
+    .badge { background: var(--amber-50); color: var(--amber-800); font-size: 12px; font-weight: 500; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .step-body { display: flex; flex-direction: column; gap: 4px; }
+    .step-title { font-size: 12px; font-weight: 500; color: var(--amber-600); text-transform: uppercase; letter-spacing: .06em; }
+    .step-text { font-size: 13.5px; line-height: 1.7; color: var(--text-secondary); }
+    .notes-block { margin-top: 36px; padding-top: 28px; border-top: 0.5px solid var(--border-light); }
+    .note-item { display: flex; gap: 12px; margin-bottom: 14px; align-items: flex-start; }
+    .note-item:last-child { margin-bottom: 0; }
+    .note-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber-200); flex-shrink: 0; margin-top: 7px; }
+    .note-text { font-size: 12.5px; line-height: 1.65; color: var(--text-tertiary); font-style: italic; }
+    .nav-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+    .courses-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--text-tertiary); text-decoration: none; transition: color .15s; }
+    .courses-btn:hover { color: var(--amber-600); }
+    .courses-arrow { width: 18px; height: 18px; border-radius: 50%; border: 1px solid currentColor; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; }
+    .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--text-tertiary); text-decoration: none; margin-bottom: 0; transition: color .15s; }
+    .back-link:hover { color: var(--amber-600); }
+    .back-arrow { width: 18px; height: 18px; border-radius: 50%; border: 1px solid currentColor; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; }
+    @media (max-width: 680px) { body { padding: 24px 16px; } .card { padding: 28px 20px; border-radius: 12px; } .recipe-title { font-size: 22px; } .two-col { grid-template-columns: 1fr; gap: 28px; } }
+    @media (max-width: 400px) { body { padding: 16px 12px; } .card { padding: 20px 16px; border-radius: 8px; } .recipe-title { font-size: 20px; } .ing-row { font-size: 12px; } .step-text { font-size: 13px; } }
+    @media print { body { padding: 0; background: #fff; } .card { border: none; border-radius: 0; padding: 32px; max-width: 100%; } .nav-row { display: none; } }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="nav-row">
+      <a href="index.html" class="back-link"><span class="back-arrow">&#8592;</span>Retour au sommaire</a>
+      <a href="courses-ratatouille.html" class="courses-btn">Liste de courses <span class="courses-arrow">&#8594;</span></a>
+    </div>
+
+    <h1 class="recipe-title">Ratatouille</h1>
+    <p class="recipe-meta">4 portions · 1 h 15 min</p>
+
+    <div class="rule"><div class="rule-line"></div><div class="rule-dot"></div><div class="rule-line"></div></div>
+
+    <div class="two-col">
+      <div>
+        <p class="section-label">Ingrédients</p>
+
+        <p class="ing-group-label">Légumes</p>
+        <div class="ing-row"><span class="ing-name">Courgettes</span><span class="ing-qty">2</span></div>
+        <div class="ing-row"><span class="ing-name">Aubergines</span><span class="ing-qty">2</span></div>
+        <div class="ing-row"><span class="ing-name">Poivrons (rouge et/ou jaune)</span><span class="ing-qty">2</span></div>
+        <div class="ing-row"><span class="ing-name">Tomates</span><span class="ing-qty">4</span></div>
+        <div class="ing-row"><span class="ing-name">Oignons</span><span class="ing-qty">2</span></div>
+        <div class="ing-row"><span class="ing-name">Ail</span><span class="ing-qty">3 gousses</span></div>
+
+        <p class="ing-group-label">Assaisonnement</p>
+        <div class="ing-row"><span class="ing-name">Huile d'olive</span><span class="ing-qty">à convenance</span></div>
+        <div class="ing-row"><span class="ing-name">Thym</span><span class="ing-qty">2 branches</span></div>
+        <div class="ing-row"><span class="ing-name">Laurier</span><span class="ing-qty">2 feuilles</span></div>
+        <div class="ing-row"><span class="ing-name">Basilic frais</span><span class="ing-qty">quelques feuilles</span></div>
+        <div class="ing-row"><span class="ing-name">Sel, poivre</span><span class="ing-qty">à convenance</span></div>
+
+        <div class="materiel-block">
+          <p class="section-label">Matériel</p>
+          <ul class="materiel-list">
+            <li><span class="mat-dot"></span>Grande poêle</li>
+            <li><span class="mat-dot"></span>Grande cocotte</li>
+            <li><span class="mat-dot"></span>Couteau</li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <p class="section-label">Préparation</p>
+
+        <div class="step">
+          <span class="badge">1</span>
+          <div class="step-body">
+            <span class="step-title">Préparer les légumes</span>
+            <p class="step-text">Coupez tous les légumes en cubes de 2 à 3 cm. Gardez chaque légume séparé — ils seront cuits individuellement.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="badge">2</span>
+          <div class="step-body">
+            <span class="step-title">Faire revenir les aubergines</span>
+            <p class="step-text">Dans une grande poêle ou cocotte, faites chauffer un généreux filet d'huile d'olive à feu vif. Faites dorer les aubergines 5 à 7 minutes, salez, poivrez. Réservez.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="badge">3</span>
+          <div class="step-body">
+            <span class="step-title">Faire revenir les courgettes</span>
+            <p class="step-text">Dans la même poêle ou cocotte avec un peu d'huile, faites dorer les courgettes 3 à 5 minutes à feu vif, salez, poivrez. Réservez.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="badge">4</span>
+          <div class="step-body">
+            <span class="step-title">Faire revenir les poivrons</span>
+            <p class="step-text">Faites revenir les poivrons à feu moyen 5 à 7 minutes jusqu'à ce qu'ils soient légèrement attendris. Réservez.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="badge">5</span>
+          <div class="step-body">
+            <span class="step-title">Faire fondre les oignons et l'ail</span>
+            <p class="step-text">Faites revenir les oignons à feu doux avec un filet d'huile jusqu'à ce qu'ils soient translucides (environ 8 minutes). Ajoutez l'ail écrasé et faites revenir 1 minute.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="badge">6</span>
+          <div class="step-body">
+            <span class="step-title">Compoter les tomates</span>
+            <p class="step-text">Ajoutez les tomates dans la cocotte avec les oignons. Ajoutez le thym et le laurier. Laissez compoter 10 minutes à feu moyen.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="badge">7</span>
+          <div class="step-body">
+            <span class="step-title">Assembler et mijoter</span>
+            <p class="step-text">Ajoutez tous les légumes réservés dans la cocotte. Mélangez délicatement, couvrez et laissez mijoter à feu doux 25 à 30 minutes. Goûtez et ajustez l'assaisonnement. Parsemez de basilic frais au moment de servir.</p>
+          </div>
+        </div>
+
+        <div class="notes-block">
+          <p class="section-label">Notes</p>
+          <div class="note-item"><span class="note-dot"></span><p class="note-text"><strong style="color:var(--text-secondary);font-style:normal">Cuisson séparée :</strong> C'est la règle d'or — chaque légume cuit séparément garde sa texture et ses saveurs. Tout cuire ensemble donne une soupe.</p></div>
+          <div class="note-item"><span class="note-dot"></span><p class="note-text"><strong style="color:var(--text-secondary);font-style:normal">Le lendemain :</strong> La ratatouille est encore meilleure réchauffée — les saveurs se développent au repos. Préparez-la la veille si possible.</p></div>
+          <div class="note-item"><span class="note-dot"></span><p class="note-text"><strong style="color:var(--text-secondary);font-style:normal">Service :</strong> Chaude en accompagnement d'une viande ou d'un poisson, froide à l'apéritif sur des tartines, ou en sauce avec des pâtes ou du riz.</p></div>
+          <div class="note-item"><span class="note-dot"></span><p class="note-text"><strong style="color:var(--text-secondary);font-style:normal">Tomates acides :</strong> Si vos tomates sont très acides, une petite pincée de sucre en cours de cuisson suffit à équilibrer — c'est une astuce de cuisinier, pas un ingrédient de la recette traditionnelle.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiche asperges blanches chorizo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --amber-50:  #FAEEDA;
+      --amber-200: #EF9F27;
+      --amber-400: #BA7517;
+      --amber-600: #854F0B;
+      --amber-800: #633806;
+      --text-primary: #1a1a18;
+      --text-secondary: #5a5a55;
+      --text-tertiary: #9a9a92;
+      --border-light: rgba(0,0,0,0.08);
+      --bg: #fdfcf8;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text-primary); min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 48px 24px; }
+    .card { background: #fff; border: 0.5px solid var(--border-light); border-radius: 16px; padding: 48px; max-width: 780px; width: 100%; }
+    .recipe-title { font-family: 'Lora', serif; font-size: 28px; font-weight: 500; text-align: center; color: var(--text-primary); margin-bottom: 6px; }
+    .recipe-meta { font-size: 11px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--text-tertiary); text-align: center; margin-bottom: 10px; }
+    .rule { display: flex; align-items: center; gap: 12px; margin: 0 0 36px; }
+    .rule-line { flex: 1; height: 0.5px; background: var(--amber-200); }
+    .rule-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber-400); flex-shrink: 0; }
+    .two-col { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; align-items: start; }
+    .section-label { font-size: 10px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--amber-600); border-bottom: 1.5px solid var(--amber-200); padding-bottom: 6px; margin-bottom: 14px; }
+    .ing-group-label { font-size: 10px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--text-tertiary); margin: 14px 0 6px; }
+    .ing-group-label:first-child { margin-top: 0; }
+    .ing-row { display: flex; justify-content: space-between; align-items: baseline; padding: 7px 0; border-bottom: 0.5px solid var(--border-light); font-size: 13px; gap: 8px; }
+    .ing-row:last-child { border-bottom: none; }
+    .ing-name { color: var(--text-primary); font-weight: 500; }
+    .ing-qty { color: var(--text-secondary); font-size: 12px; white-space: nowrap; }
+    .materiel-block { margin-top: 28px; }
+    .materiel-list { list-style: none; }
+    .materiel-list li { font-size: 13px; color: var(--text-secondary); padding: 6px 0; border-bottom: 0.5px solid var(--border-light); display: flex; align-items: center; gap: 9px; }
+    .materiel-list li:last-child { border-bottom: none; }
+    .mat-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber-200); flex-shrink: 0; }
+    .step { display: flex; gap: 14px; margin-bottom: 20px; align-items: flex-start; }
+    .step:last-child { margin-bottom: 0; }
+    .badge { background: var(--amber-50); color: var(--amber-800); font-size: 12px; font-weight: 500; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .step-body { display: flex; flex-direction: column; gap: 4px; }
+    .step-title { font-size: 12px; font-weight: 500; color: var(--amber-600); text-transform: uppercase; letter-spacing: .06em; }
+    .step-text { font-size: 13.5px; line-height: 1.7; color: var(--text-secondary); }
+    .notes-block { margin-top: 36px; padding-top: 28px; border-top: 0.5px solid var(--border-light); }
+    .note-item { display: flex; gap: 12px; margin-bottom: 14px; align-items: flex-start; }
+    .note-item:last-child { margin-bottom: 0; }
+    .note-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber-200); flex-shrink: 0; margin-top: 7px; }
+    .note-text { font-size: 12.5px; line-height: 1.65; color: var(--text-tertiary); font-style: italic; }
+    .nav-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+    .courses-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--text-tertiary); text-decoration: none; transition: color .15s; }
+    .courses-btn:hover { color: var(--amber-600); }
+    .courses-arrow { width: 18px; height: 18px; border-radius: 50%; border: 1px solid currentColor; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; }
+    .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--text-tertiary); text-decoration: none; margin-bottom: 0; transition: color .15s; }
+    .back-link:hover { color: var(--amber-600); }
+    .back-arrow { width: 18px; height: 18px; border-radius: 50%; border: 1px solid currentColor; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; }
+    @media (max-width: 680px) { body { padding: 24px 16px; } .card { padding: 28px 20px; border-radius: 12px; } .recipe-title { font-size: 22px; } .two-col { grid-template-columns: 1fr; gap: 28px; } }
+    @media (max-width: 400px) { body { padding: 16px 12px; } .card { padding: 20px 16px; border-radius: 8px; } .recipe-title { font-size: 20px; } .ing-row { font-size: 12px; } .step-text { font-size: 13px; } }
+    @media print { body { padding: 0; background: #fff; } .card { border: none; border-radius: 0; padding: 32px; max-width: 100%; } .back-link, .nav-row { display: none; } }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="nav-row">
+      <a href="index.html" class="back-link"><span class="back-arrow">&#8592;</span>Retour au sommaire</a>
+      <a href="courses-quiche-asperges-chorizo.html" class="courses-btn">Liste de courses <span class="courses-arrow">&#8594;</span></a>
+    </div>
+
+    <h1 class="recipe-title">Quiche asperges blanches chorizo</h1>
+    <p class="recipe-meta">4 portions · 65 min</p>
+
+    <div class="rule"><div class="rule-line"></div><div class="rule-dot"></div><div class="rule-line"></div></div>
+
+    <div class="two-col">
+      <div>
+        <p class="section-label">Ingrédients</p>
+
+        <p class="ing-group-label">Base</p>
+        <div class="ing-row"><span class="ing-name">Pâte feuilletée sans gluten</span><span class="ing-qty">1 rouleau</span></div>
+
+        <p class="ing-group-label">Migaine</p>
+        <div class="ing-row"><span class="ing-name">Œufs</span><span class="ing-qty">4 / 200 g</span></div>
+        <div class="ing-row"><span class="ing-name">Crème liquide</span><span class="ing-qty">200 g / 20 cl</span></div>
+        <div class="ing-row"><span class="ing-name">Lait</span><span class="ing-qty">200 g / 20 cl</span></div>
+        <div class="ing-row"><span class="ing-name">Sel</span><span class="ing-qty">à convenance</span></div>
+        <div class="ing-row"><span class="ing-name">Poivre</span><span class="ing-qty">à convenance</span></div>
+
+        <p class="ing-group-label">Garniture</p>
+        <div class="ing-row"><span class="ing-name">Asperges blanches</span><span class="ing-qty">8</span></div>
+        <div class="ing-row"><span class="ing-name">Chorizo</span><span class="ing-qty">½</span></div>
+        <div class="ing-row"><span class="ing-name">Gruyère râpé</span><span class="ing-qty">80 g</span></div>
+
+        <div class="materiel-block">
+          <p class="section-label">Matériel</p>
+          <ul class="materiel-list">
+            <li><span class="mat-dot"></span>Cuiseur vapeur</li>
+            <li><span class="mat-dot"></span>Économe</li>
+            <li><span class="mat-dot"></span>Saladier</li>
+            <li><span class="mat-dot"></span>Cuillère</li>
+            <li><span class="mat-dot"></span>Moule à tarte 24 cm</li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <p class="section-label">Préparation</p>
+
+        <div class="step">
+          <span class="badge">1</span>
+          <div class="step-body">
+            <span class="step-title">Préparer les asperges</span>
+            <p class="step-text">Coupez et retirez la partie dure du pied de chaque asperge. Épluchez le reste à l'économe. Lavez-les soigneusement. Faites-les cuire à la vapeur 8 minutes — elles doivent rester légèrement fermes. Réservez.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="badge">2</span>
+          <div class="step-body">
+            <span class="step-title">Préparer le chorizo</span>
+            <p class="step-text">Retirez la peau du demi chorizo. Coupez et réservez une dizaine de rondelles pour la décoration. Détaillez le reste en dés.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="badge">3</span>
+          <div class="step-body">
+            <span class="step-title">Foncer la pâte</span>
+            <p class="step-text">Sortez la pâte feuilletée du réfrigérateur. Foncez-la dans le moule à tarte de 24 cm en la laissant remonter sur les bords. Piquez le fond à la fourchette.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="badge">4</span>
+          <div class="step-body">
+            <span class="step-title">Préparer la migaine</span>
+            <p class="step-text">Dans un saladier, mélangez les œufs, la crème et le lait à la cuillère jusqu'à obtenir une préparation homogène. Salez et poivrez.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="badge">5</span>
+          <div class="step-body">
+            <span class="step-title">Assembler</span>
+            <p class="step-text">Disposez les asperges et les dés de chorizo sur le fond de pâte. Parsemez de gruyère râpé. Versez la migaine par-dessus. Déposez les rondelles de chorizo sur le dessus pour la décoration.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="badge">6</span>
+          <div class="step-body">
+            <span class="step-title">Enfourner</span>
+            <p class="step-text">Enfournez à 180 °C pendant 40 minutes. La quiche est prête lorsque la migaine a bien pris et que le dessus est doré. Dégustez tiède ou froide.</p>
+          </div>
+        </div>
+
+        <div class="notes-block">
+          <p class="section-label">Notes</p>
+          <div class="note-item"><span class="note-dot"></span><p class="note-text"><strong style="color:var(--text-secondary);font-style:normal">Asperges :</strong> Ne pas trop les cuire à la vapeur — elles continueront à cuire au four. 8 minutes suffit pour les attendrir sans les ramollir.</p></div>
+          <div class="note-item"><span class="note-dot"></span><p class="note-text"><strong style="color:var(--text-secondary);font-style:normal">Chorizo :</strong> Plus il sera froid, plus il sera facile à travailler — la peau s'enlève mieux et il se coupe plus nettement.</p></div>
+          <div class="note-item"><span class="note-dot"></span><p class="note-text"><strong style="color:var(--text-secondary);font-style:normal">Sel :</strong> Le chorizo est déjà bien salé — goûtez la migaine avant d'ajuster l'assaisonnement.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

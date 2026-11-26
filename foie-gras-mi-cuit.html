@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foie gras mi-cuit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --amber-50:  #FAEEDA;
+      --amber-200: #EF9F27;
+      --amber-400: #BA7517;
+      --amber-600: #854F0B;
+      --amber-800: #633806;
+      --text-primary: #1a1a18;
+      --text-secondary: #5a5a55;
+      --text-tertiary: #9a9a92;
+      --border-light: rgba(0,0,0,0.08);
+      --bg: #fdfcf8;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text-primary); min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 48px 24px; }
+    .card { background: #fff; border: 0.5px solid var(--border-light); border-radius: 16px; padding: 48px; max-width: 780px; width: 100%; }
+    .recipe-title { font-family: 'Lora', serif; font-size: 28px; font-weight: 500; text-align: center; color: var(--text-primary); margin-bottom: 6px; }
+    .recipe-meta { font-size: 11px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--text-tertiary); text-align: center; margin-bottom: 10px; }
+    .rule { display: flex; align-items: center; gap: 12px; margin: 0 0 36px; }
+    .rule-line { flex: 1; height: 0.5px; background: var(--amber-200); }
+    .rule-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber-400); flex-shrink: 0; }
+    .two-col { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; align-items: start; }
+    .section-label { font-size: 10px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--amber-600); border-bottom: 1.5px solid var(--amber-200); padding-bottom: 6px; margin-bottom: 14px; }
+    .ing-row { display: flex; justify-content: space-between; align-items: baseline; padding: 7px 0; border-bottom: 0.5px solid var(--border-light); font-size: 13px; gap: 8px; }
+    .ing-row:last-child { border-bottom: none; }
+    .ing-name { color: var(--text-primary); font-weight: 500; }
+    .ing-qty { color: var(--text-secondary); font-size: 12px; white-space: nowrap; }
+    .ing-optional { font-size: 10px; color: var(--text-tertiary); font-style: italic; }
+    .materiel-block { margin-top: 28px; }
+    .materiel-list { list-style: none; }
+    .materiel-list li { font-size: 13px; color: var(--text-secondary); padding: 6px 0; border-bottom: 0.5px solid var(--border-light); display: flex; align-items: center; gap: 9px; }
+    .materiel-list li:last-child { border-bottom: none; }
+    .mat-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber-200); flex-shrink: 0; }
+    .step { display: flex; gap: 14px; margin-bottom: 20px; align-items: flex-start; }
+    .step:last-child { margin-bottom: 0; }
+    .badge { background: var(--amber-50); color: var(--amber-800); font-size: 12px; font-weight: 500; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .step-body { display: flex; flex-direction: column; gap: 4px; }
+    .step-title { font-size: 12px; font-weight: 500; color: var(--amber-600); text-transform: uppercase; letter-spacing: .06em; }
+    .step-text { font-size: 13.5px; line-height: 1.7; color: var(--text-secondary); }
+    .notes-block { margin-top: 36px; padding-top: 28px; border-top: 0.5px solid var(--border-light); }
+    .note-item { display: flex; gap: 12px; margin-bottom: 14px; align-items: flex-start; }
+    .note-item:last-child { margin-bottom: 0; }
+    .note-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber-200); flex-shrink: 0; margin-top: 7px; }
+    .note-text { font-size: 12.5px; line-height: 1.65; color: var(--text-tertiary); font-style: italic; }
+    .nav-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+    .courses-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--text-tertiary); text-decoration: none; transition: color .15s; }
+    .courses-btn:hover { color: var(--amber-600); }
+    .courses-arrow { width: 18px; height: 18px; border-radius: 50%; border: 1px solid currentColor; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; }
+    .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--text-tertiary); text-decoration: none; margin-bottom: 0; transition: color .15s; }
+    .back-link:hover { color: var(--amber-600); }
+    .back-arrow { width: 18px; height: 18px; border-radius: 50%; border: 1px solid currentColor; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; }
+    .assaisonnement-block { margin-top: 20px; background: var(--amber-50); border-radius: 10px; padding: 14px 16px; }
+    .assaisonnement-title { font-size: 10px; font-weight: 500; letter-spacing: .10em; text-transform: uppercase; color: var(--amber-600); margin-bottom: 10px; }
+    .assaisonnement-row { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+    .assaisonnement-row strong { color: var(--text-primary); font-weight: 500; }
+    @media (max-width: 680px) { body { padding: 24px 16px; } .card { padding: 28px 20px; border-radius: 12px; } .recipe-title { font-size: 22px; } .two-col { grid-template-columns: 1fr; gap: 28px; } }
+    @media (max-width: 400px) { body { padding: 16px 12px; } .card { padding: 20px 16px; border-radius: 8px; } .recipe-title { font-size: 20px; } .ing-row { font-size: 12px; } .step-text { font-size: 13px; } }
+    @media print { body { padding: 0; background: #fff; } .card { border: none; border-radius: 0; padding: 32px; max-width: 100%; } .nav-row { display: none; } }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="nav-row">
+      <a href="index.html" class="back-link"><span class="back-arrow">&#8592;</span>Retour au sommaire</a>
+      <a href="courses-foie-gras-mi-cuit.html" class="courses-btn">Liste de courses <span class="courses-arrow">&#8594;</span></a>
+    </div>
+
+    <h1 class="recipe-title">Foie gras mi-cuit</h1>
+    <p class="recipe-meta">4 à 6 personnes · ~30 min + 24 h de marinade · Entrée · Fêtes</p>
+
+    <div class="rule"><div class="rule-line"></div><div class="rule-dot"></div><div class="rule-line"></div></div>
+
+    <div class="two-col">
+      <div>
+        <p class="section-label">Ingrédients</p>
+        <div class="ing-row"><span class="ing-name">Foie gras de canard cru éveiné (Picard)</span><span class="ing-qty">1 lobe (400 g)</span></div>
+        <div class="ing-row"><span class="ing-name">Sel fin</span><span class="ing-qty">4,8 g <span class="ing-optional">(12 g/kg)</span></span></div>
+        <div class="ing-row"><span class="ing-name">Poivre</span><span class="ing-qty">1,2 g <span class="ing-optional">(3 g/kg)</span></span></div>
+        <div class="ing-row"><span class="ing-name">Sucre</span><span class="ing-qty">0,8 g <span class="ing-optional">(2 g/kg)</span></span></div>
+        <div class="ing-row"><span class="ing-name">Alcool (rhum, porto, calvados, whisky…)</span><span class="ing-qty">1 à 2 c.à soupe <span class="ing-optional">(optionnel)</span></span></div>
+        <div class="ing-row"><span class="ing-name">Arômes au choix</span><span class="ing-qty"><span class="ing-optional">piment d'Espelette, vanille, quatre épices, cannelle</span></span></div>
+
+        <div class="assaisonnement-block">
+          <p class="assaisonnement-title">Règle d'assaisonnement</p>
+          <p class="assaisonnement-row">Pour <strong>1 kg</strong> de foie : <strong>12 g sel + 3 g poivre + 2 g sucre</strong></p>
+        </div>
+
+        <div class="materiel-block">
+          <p class="section-label">Matériel</p>
+          <ul class="materiel-list">
+            <li><span class="mat-dot"></span>Film plastique (alimentaire)</li>
+            <li><span class="mat-dot"></span>Grande cocotte</li>
+            <li><span class="mat-dot"></span>Grande bassine</li>
+            <li><span class="mat-dot"></span>Glaçons</li>
+            <li><span class="mat-dot"></span>Couvercle plus petit que la cocotte</li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <p class="section-label">Préparation</p>
+
+        <div class="step">
+          <span class="badge">1</span>
+          <div class="step-body">
+            <span class="step-title">Décongeler et ouvrir</span>
+            <p class="step-text">Faites décongeler le foie gras au réfrigérateur. Une fois décongelé, ouvrez le sachet — le lobe se sépare naturellement en deux. Ouvrez-le délicatement.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="badge">2</span>
+          <div class="step-body">
+            <span class="step-title">Assaisonner</span>
+            <p class="step-text">Mélangez sel, poivre et sucre en respectant les proportions (12 g + 3 g + 2 g par kilo). Saupoudrez le mélange uniformément sur toutes les faces du foie. Ajoutez vos arômes et l'alcool si souhaité.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="badge">3</span>
+          <div class="step-body">
+            <span class="step-title">Mariner</span>
+            <p class="step-text">Filmez le foie et laissez mariner 24 heures au réfrigérateur. <em>Si vous n'avez pas mis d'alcool, cette étape n'est pas indispensable.</em></p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="badge">4</span>
+          <div class="step-body">
+            <span class="step-title">Façonner en boudin</span>
+            <p class="step-text">Déposez tout le foie sur une grande feuille de film plastique. Formez un beau boudin bien rond et serré. Enroulez le film fermement, puis percez-le avec un cure-dent pour chasser l'air résiduel. Remettez plusieurs couches de film (3 à 4) en serrant bien à chaque fois pour s'assurer que tout est bien hermétique.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="badge">5</span>
+          <div class="step-body">
+            <span class="step-title">Cuire à l'eau bouillante</span>
+            <p class="step-text">Portez une grande cocotte d'eau à ébullition. Plongez le boudin filmé dans l'eau bouillante. Coupez immédiatement le feu. Posez un couvercle plus petit que la cocotte sur le foie pour le maintenir immergé. Laissez reposer dans l'eau environ 15 minutes, le temps que l'eau refroidisse.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <span class="badge">6</span>
+          <div class="step-body">
+            <span class="step-title">Choc froid et conservation</span>
+            <p class="step-text">Transférez le foie (encore mou, c'est normal) dans une bassine d'eau froide avec des glaçons. Laissez quelques minutes. Puis direction le réfrigérateur (3 à 4 jours) ou le congélateur si préparé à l'avance.</p>
+          </div>
+        </div>
+
+        <div class="notes-block">
+          <p class="section-label">Notes</p>
+          <div class="note-item"><span class="note-dot"></span><p class="note-text"><strong style="color:var(--text-secondary);font-style:normal">Foie Picard :</strong> L'avantage du foie éveiné surgelé est double — pas de déveinage à faire, et la congélation rompt les membranes ce qui facilite la découpe.</p></div>
+          <div class="note-item"><span class="note-dot"></span><p class="note-text"><strong style="color:var(--text-secondary);font-style:normal">Film plastique :</strong> Multipliez les couches généreusement — c'est le seul rempart contre l'eau. 4 couches minimum, en serrant bien à chaque fois.</p></div>
+          <div class="note-item"><span class="note-dot"></span><p class="note-text"><strong style="color:var(--text-secondary);font-style:normal">Texture :</strong> Le foie sera très mou à la sortie du bain — c'est normal. Il raffermit en refroidissant et retrouve une belle tenue tranchable après quelques heures au frigo.</p></div>
+          <div class="note-item"><span class="note-dot"></span><p class="note-text"><strong style="color:var(--text-secondary);font-style:normal">Conservation :</strong> 3 à 4 jours au réfrigérateur. Se congèle très bien — pensez à le préparer quelques jours avant les fêtes.</p></div>
+          <div class="note-item"><span class="note-dot"></span><p class="note-text"><strong style="color:var(--text-secondary);font-style:normal">Service :</strong> Tranchez avec un couteau trempé dans l'eau chaude pour des tranches nettes. Servez sur du pain grillé ou une tranche de brioche, avec de la fleur de sel et un chutney de figues.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liste de courses — Quiche lardons oignons</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --amber-50:#FAEEDA;--amber-200:#EF9F27;--amber-400:#BA7517;--amber-600:#854F0B;--amber-800:#633806;--text-primary:#1a1a18;--text-secondary:#5a5a55;--text-tertiary:#9a9a92;--border-light:rgba(0,0,0,0.08);--bg:#fdfcf8; }
+    body { font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--text-primary);min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:48px 24px; }
+    .card { background:#fff;border:0.5px solid var(--border-light);border-radius:16px;padding:48px;max-width:480px;width:100%; }
+    .title { font-family:"Lora",serif;font-size:22px;font-weight:500;text-align:center;color:var(--text-primary);margin-bottom:4px; }
+    .subtitle { font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--text-tertiary);text-align:center;margin-bottom:10px; }
+    .rule { display:flex;align-items:center;gap:12px;margin:0 0 28px; }
+    .rule-line { flex:1;height:0.5px;background:var(--amber-200); }
+    .rule-dot { width:5px;height:5px;border-radius:50%;background:var(--amber-400);flex-shrink:0; }
+    .section-label { font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--amber-600);border-bottom:1.5px solid var(--amber-200);padding-bottom:6px;margin:24px 0 12px; }
+    .section-label:first-of-type { margin-top:0; }
+    .item { display:flex;align-items:center;gap:14px;padding:10px 0;border-bottom:0.5px solid var(--border-light);cursor:pointer;transition:opacity .15s; }
+    .item:last-child { border-bottom:none; }
+    .item.checked { opacity:0.4; }
+    .item.checked .item-name { text-decoration:line-through; }
+    .checkbox { width:22px;height:22px;border-radius:6px;border:1.5px solid var(--amber-200);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s; }
+    .item.checked .checkbox { background:var(--amber-200);border-color:var(--amber-200); }
+    .checkmark { display:none;width:12px;height:12px; }
+    .item.checked .checkmark { display:block; }
+    .item-name { font-size:14px;color:var(--text-primary);flex:1; }
+    .item-qty { font-size:12px;color:var(--text-tertiary);white-space:nowrap; }
+    .actions { display:flex;gap:10px;margin-top:28px; }
+    .btn { flex:1;padding:10px;border-radius:8px;border:none;font-family:"DM Sans",sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:opacity .15s; }
+    .btn-reset { background:var(--amber-50);color:var(--amber-800); }
+    .btn-reset:hover { opacity:0.8; }
+    .counter { font-size:12px;color:var(--text-tertiary);text-align:center;margin-top:16px; }
+    .back-link { display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--text-tertiary);text-decoration:none;margin-bottom:28px;transition:color .15s; }
+    .back-link:hover { color:var(--amber-600); }
+    .back-arrow { width:18px;height:18px;border-radius:50%;border:1px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0; }
+    @media (max-width:480px) { body { padding:24px 16px; } .card { padding:28px 20px; } }
+    @media print { body { padding:0; } .card { border:none;padding:24px; } .back-link,.actions { display:none; } .item.checked { opacity:1; } .item.checked .item-name { text-decoration:none; } }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <a href="quiche-lardons-oignons.html" class="back-link"><span class="back-arrow">&#8592;</span>Retour à la recette</a>
+    <h1 class="title">Liste de courses</h1>
+    <p class="subtitle">Quiche lardons oignons · 4 portions</p>
+    <div class="rule"><div class="rule-line"></div><div class="rule-dot"></div><div class="rule-line"></div></div>
+        <p class="section-label">Appareil</p>
+    <div class="item" onclick="toggle(this)">
+      <div class="checkbox"><svg class="checkmark" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <span class="item-name">Œufs</span>
+      <span class="item-qty">3 / 150 g</span>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="checkbox"><svg class="checkmark" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <span class="item-name">Lait</span>
+      <span class="item-qty">500 g / 50 cl</span>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="checkbox"><svg class="checkmark" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <span class="item-name">Fécule de maïs</span>
+      <span class="item-qty">100 g</span>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="checkbox"><svg class="checkmark" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <span class="item-name">Gruyère râpé</span>
+      <span class="item-qty">100 g</span>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="checkbox"><svg class="checkmark" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <span class="item-name">Beurre</span>
+      <span class="item-qty">10 g</span>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="checkbox"><svg class="checkmark" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <span class="item-name">Sel</span>
+      <span class="item-qty">à convenance</span>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="checkbox"><svg class="checkmark" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <span class="item-name">Poivre</span>
+      <span class="item-qty">à convenance</span>
+    </div>
+    <p class="section-label">Garniture</p>
+    <div class="item" onclick="toggle(this)">
+      <div class="checkbox"><svg class="checkmark" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <span class="item-name">Lardons</span>
+      <span class="item-qty">200 g</span>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="checkbox"><svg class="checkmark" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <span class="item-name">Oignons</span>
+      <span class="item-qty">200 g</span>
+    </div>
+    <div class="item" onclick="toggle(this)">
+      <div class="checkbox"><svg class="checkmark" viewBox="0 0 12 12" fill="none"><polyline points="1.5,6 4.5,9.5 10.5,2.5" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <span class="item-name">Vin blanc</span>
+      <span class="item-qty">1 trait</span>
+    </div>
+    <p class="counter" id="counter">0 / 10 articles cochés</p>
+    <div class="actions"><button class="btn btn-reset" onclick="resetAll()">Tout décocher</button></div>
+  </div>
+  <script>
+    const KEY = "courses-quiche-lardons-oignons";
+    function saveState() { const s={};document.querySelectorAll(".item").forEach((el,i)=>{s[i]=el.classList.contains("checked");});localStorage.setItem(KEY,JSON.stringify(s)); }
+    function loadState() { const saved=localStorage.getItem(KEY);if(!saved)return;const s=JSON.parse(saved);document.querySelectorAll(".item").forEach((el,i)=>{if(s[i])el.classList.add("checked");});updateCounter(); }
+    function toggle(el) { el.classList.toggle("checked");updateCounter();saveState(); }
+    function resetAll() { document.querySelectorAll(".item").forEach(el=>el.classList.remove("checked"));updateCounter();localStorage.removeItem(KEY); }
+    function updateCounter() { const total=document.querySelectorAll(".item").length;const checked=document.querySelectorAll(".item.checked").length;document.getElementById("counter").textContent=checked+" / "+total+" articles cochés"; }
+    window.addEventListener("DOMContentLoaded",loadState);
+  </script>
+</body>
+</html>

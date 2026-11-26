@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Courses – Poulet Kung Pao</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --amber-50:  #FAEEDA;
+      --amber-100: #FAC775;
+      --amber-200: #EF9F27;
+      --amber-400: #BA7517;
+      --amber-600: #854F0B;
+      --amber-800: #633806;
+      --text-primary: #1a1a18;
+      --text-secondary: #5a5a55;
+      --text-tertiary: #9a9a92;
+      --border-light: rgba(0,0,0,0.08);
+      --bg: #fdfcf8;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+      padding: 56px 24px;
+    }
+
+    .page { max-width: 520px; margin: 0 auto; }
+
+    .nav-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      text-decoration: none;
+      transition: color .15s;
+    }
+    .back-link:hover { color: var(--amber-600); }
+    .back-arrow {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 1px solid currentColor;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 11px; flex-shrink: 0;
+    }
+
+    header { margin-bottom: 8px; }
+
+    .recipe-label {
+      font-size: 11px; font-weight: 500; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--amber-400); margin-bottom: 6px;
+    }
+
+    h1 {
+      font-family: 'Lora', serif; font-size: 26px;
+      font-weight: 500; color: var(--text-primary); line-height: 1.2;
+    }
+
+    .counter {
+      font-size: 12px; color: var(--text-tertiary);
+      margin-top: 6px; margin-bottom: 4px;
+    }
+
+    .rule {
+      display: flex; align-items: center; gap: 12px; margin: 20px 0;
+    }
+    .rule-line { flex: 1; height: 0.5px; background: var(--amber-200); }
+    .rule-dot  { width: 6px; height: 6px; border-radius: 50%; background: var(--amber-400); flex-shrink: 0; }
+
+    .group { margin-bottom: 28px; }
+
+    .group-title {
+      font-size: 11px; font-weight: 500; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--text-tertiary);
+      margin-bottom: 10px; padding-bottom: 6px;
+      border-bottom: 0.5px solid var(--border-light);
+    }
+
+    .item {
+      display: flex; align-items: baseline; justify-content: space-between;
+      gap: 12px; padding: 10px 0;
+      border-bottom: 0.5px solid var(--border-light);
+      cursor: pointer; transition: opacity .15s;
+    }
+
+    .item:last-child { border-bottom: none; }
+
+    .item.checked { opacity: 0.38; }
+
+    .item.checked .item-name { text-decoration: line-through; }
+
+    .item-name { font-size: 14px; color: var(--text-primary); }
+
+    .item-qty {
+      font-size: 13px; color: var(--text-tertiary);
+      white-space: nowrap; flex-shrink: 0;
+    }
+
+    .reset-btn {
+      display: block; margin: 32px auto 0;
+      background: none; border: 1px solid var(--border-light);
+      border-radius: 20px; padding: 8px 20px;
+      font-family: 'DM Sans', sans-serif; font-size: 12px;
+      color: var(--text-tertiary); cursor: pointer;
+      transition: border-color .15s, color .15s;
+    }
+    .reset-btn:hover { border-color: var(--amber-200); color: var(--amber-600); }
+
+    @media (max-width: 480px) {
+      body { padding: 32px 16px; }
+      h1 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <div class="nav-row">
+      <a href="poulet-kung-pao.html" class="back-link">
+        <span class="back-arrow">&#8592;</span>Retour à la recette
+      </a>
+    </div>
+
+    <header>
+      <p class="recipe-label">Liste de courses</p>
+      <h1>Poulet Kung Pao</h1>
+      <p class="counter" id="counter">0 / 0 articles cochés</p>
+    </header>
+
+    <div class="rule"><div class="rule-line"></div><div class="rule-dot"></div><div class="rule-line"></div></div>
+
+    <div class="group">
+      <p class="group-title">Poulet</p>
+      <div class="item" onclick="toggle(this)">
+        <span class="item-name">Blanc de poulet</span>
+        <span class="item-qty">250 g</span>
+      </div>
+    </div>
+
+    <div class="group">
+      <p class="group-title">Légumes &amp; aromates</p>
+      <div class="item" onclick="toggle(this)">
+        <span class="item-name">Oignon</span>
+        <span class="item-qty">1</span>
+      </div>
+      <div class="item" onclick="toggle(this)">
+        <span class="item-name">Ail</span>
+        <span class="item-qty">2 gousses</span>
+      </div>
+      <div class="item" onclick="toggle(this)">
+        <span class="item-name">Poivron rouge</span>
+        <span class="item-qty">½</span>
+      </div>
+      <div class="item" onclick="toggle(this)">
+        <span class="item-name">Piments doux</span>
+        <span class="item-qty">60 g</span>
+      </div>
+      <div class="item" onclick="toggle(this)">
+        <span class="item-name">Piments séchés</span>
+        <span class="item-qty">6–7</span>
+      </div>
+      <div class="item" onclick="toggle(this)">
+        <span class="item-name">Cacahuètes</span>
+        <span class="item-qty">30 g</span>
+      </div>
+    </div>
+
+    <div class="group">
+      <p class="group-title">Sauces &amp; condiments</p>
+      <div class="item" onclick="toggle(this)">
+        <span class="item-name">Sauce soja</span>
+        <span class="item-qty">28 g</span>
+      </div>
+      <div class="item" onclick="toggle(this)">
+        <span class="item-name">Vin de riz chinois</span>
+        <span class="item-qty">5 g</span>
+      </div>
+      <div class="item" onclick="toggle(this)">
+        <span class="item-name">Vinaigre de riz</span>
+        <span class="item-qty">14 g</span>
+      </div>
+      <div class="item" onclick="toggle(this)">
+        <span class="item-name">Huile de sésame</span>
+        <span class="item-qty">5 g</span>
+      </div>
+      <div class="item" onclick="toggle(this)">
+        <span class="item-name">Huile de tournesol</span>
+        <span class="item-qty">14 g</span>
+      </div>
+      <div class="item" onclick="toggle(this)">
+        <span class="item-name">Bouillon de poulet</span>
+        <span class="item-qty">14 g</span>
+      </div>
+    </div>
+
+    <div class="group">
+      <p class="group-title">Épicerie</p>
+      <div class="item" onclick="toggle(this)">
+        <span class="item-name">Fécule de maïs</span>
+        <span class="item-qty">15 g</span>
+      </div>
+      <div class="item" onclick="toggle(this)">
+        <span class="item-name">Sucre</span>
+        <span class="item-qty">15 g</span>
+      </div>
+    </div>
+
+    <button class="reset-btn" onclick="resetAll()">Tout décocher</button>
+
+  </div>
+
+  <script>
+    const KEY = 'courses-poulet-kung-pao';
+
+    function saveState() {
+      const s = {};
+      document.querySelectorAll('.item').forEach((el, i) => { s[i] = el.classList.contains('checked'); });
+      localStorage.setItem(KEY, JSON.stringify(s));
+    }
+
+    function loadState() {
+      const saved = localStorage.getItem(KEY);
+      if (!saved) return;
+      const s = JSON.parse(saved);
+      document.querySelectorAll('.item').forEach((el, i) => { if (s[i]) el.classList.add('checked'); });
+      updateCounter();
+    }
+
+    function toggle(el) {
+      el.classList.toggle('checked');
+      updateCounter();
+      saveState();
+    }
+
+    function resetAll() {
+      document.querySelectorAll('.item').forEach(el => el.classList.remove('checked'));
+      updateCounter();
+      localStorage.removeItem(KEY);
+    }
+
+    function updateCounter() {
+      const total = document.querySelectorAll('.item').length;
+      const checked = document.querySelectorAll('.item.checked').length;
+      document.getElementById('counter').textContent = checked + ' / ' + total + ' articles cochés';
+    }
+
+    window.addEventListener('DOMContentLoaded', loadState);
+    updateCounter();
+  </script>
+</body>
+</html>

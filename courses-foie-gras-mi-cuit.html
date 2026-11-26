@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liste de courses — Foie gras mi-cuit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --amber-50:  #FAEEDA;
+      --amber-200: #EF9F27;
+      --amber-400: #BA7517;
+      --amber-600: #854F0B;
+      --amber-800: #633806;
+      --text-primary: #1a1a18;
+      --text-secondary: #5a5a55;
+      --text-tertiary: #9a9a92;
+      --border-light: rgba(0,0,0,0.08);
+      --bg: #fdfcf8;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text-primary); min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 48px 24px; }
+    .card { background: #fff; border: 0.5px solid var(--border-light); border-radius: 16px; padding: 48px; max-width: 540px; width: 100%; }
+    .nav-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+    .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--text-tertiary); text-decoration: none; transition: color .15s; }
+    .back-link:hover { color: var(--amber-600); }
+    .back-arrow { width: 18px; height: 18px; border-radius: 50%; border: 1px solid currentColor; display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; }
+    .page-title { font-family: 'Lora', serif; font-size: 22px; font-weight: 500; color: var(--text-primary); margin-bottom: 4px; text-align: center; }
+    .page-sub { font-size: 11px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--text-tertiary); text-align: center; margin-bottom: 10px; }
+    .rule { display: flex; align-items: center; gap: 12px; margin: 0 0 28px; }
+    .rule-line { flex: 1; height: 0.5px; background: var(--amber-200); }
+    .rule-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber-400); flex-shrink: 0; }
+    .group-label { font-size: 10px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--amber-600); border-bottom: 1.5px solid var(--amber-200); padding-bottom: 6px; margin-bottom: 2px; margin-top: 20px; }
+    .group-label:first-of-type { margin-top: 0; }
+    .item-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 0.5px solid var(--border-light); cursor: pointer; user-select: none; }
+    .item-row:last-child { border-bottom: none; }
+    .item-row.checked .item-name { text-decoration: line-through; color: var(--text-tertiary); }
+    .item-row.checked .item-qty { text-decoration: line-through; color: var(--text-tertiary); opacity: .5; }
+    .item-row.checked .check-box { background: var(--amber-200); border-color: var(--amber-200); }
+    .item-row.checked .check-box::after { opacity: 1; }
+    .check-box { width: 18px; height: 18px; border-radius: 4px; border: 1.5px solid var(--border-light); flex-shrink: 0; position: relative; transition: background .15s, border-color .15s; }
+    .check-box::after { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 8'%3E%3Cpath d='M1 4l3 3 5-6' stroke='%23fff' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/10px no-repeat; opacity: 0; transition: opacity .15s; }
+    .item-name { font-size: 13.5px; font-weight: 500; color: var(--text-primary); flex: 1; transition: color .2s; }
+    .item-qty { font-size: 12px; color: var(--text-secondary); white-space: nowrap; transition: color .2s; }
+    .item-optional { font-size: 10px; color: var(--text-tertiary); font-style: italic; }
+    .reset-btn { display: block; margin: 28px auto 0; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; color: var(--text-tertiary); background: none; border: 0.5px solid var(--border-light); border-radius: 20px; padding: 7px 18px; cursor: pointer; transition: color .15s, border-color .15s; }
+    .reset-btn:hover { color: var(--amber-600); border-color: var(--amber-200); }
+    @media (max-width: 600px) { body { padding: 24px 16px; } .card { padding: 28px 20px; border-radius: 12px; } .page-title { font-size: 18px; } }
+    @media print { body { padding: 0; background: #fff; } .card { border: none; border-radius: 0; padding: 32px; max-width: 100%; } .nav-row { display: none; } .reset-btn { display: none; } .check-box { border-color: #ccc; } }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="nav-row">
+      <a href="foie-gras-mi-cuit.html" class="back-link"><span class="back-arrow">&#8592;</span>Retour à la recette</a>
+    </div>
+
+    <h1 class="page-title">Liste de courses</h1>
+    <p class="page-sub">Foie gras mi-cuit · 4 à 6 personnes</p>
+
+    <div class="rule"><div class="rule-line"></div><div class="rule-dot"></div><div class="rule-line"></div></div>
+
+    <p class="group-label">Foie gras</p>
+    <div class="item-row" onclick="toggle(this)"><span class="check-box"></span><span class="item-name">Foie gras de canard cru éveiné (Picard)</span><span class="item-qty">1 lobe (400 g)</span></div>
+
+    <p class="group-label">Assaisonnement</p>
+    <div class="item-row" onclick="toggle(this)"><span class="check-box"></span><span class="item-name">Sel fin</span><span class="item-qty">6 g</span></div>
+    <div class="item-row" onclick="toggle(this)"><span class="check-box"></span><span class="item-name">Poivre</span><span class="item-qty">1,5 g</span></div>
+    <div class="item-row" onclick="toggle(this)"><span class="check-box"></span><span class="item-name">Sucre</span><span class="item-qty">1 g</span></div>
+
+    <p class="group-label">Arômes & alcool <span class="item-optional">(au choix)</span></p>
+    <div class="item-row" onclick="toggle(this)"><span class="check-box"></span><span class="item-name">Alcool (rhum, porto, calvados, whisky…)</span><span class="item-qty">1-2 c.à soupe</span></div>
+    <div class="item-row" onclick="toggle(this)"><span class="check-box"></span><span class="item-name">Arômes (piment d'Espelette, vanille, quatre épices…)</span><span class="item-qty">à convenance</span></div>
+
+    <p class="group-label">Matériel à prévoir</p>
+    <div class="item-row" onclick="toggle(this)"><span class="check-box"></span><span class="item-name">Film plastique alimentaire</span><span class="item-qty">grande quantité</span></div>
+    <div class="item-row" onclick="toggle(this)"><span class="check-box"></span><span class="item-name">Glaçons</span><span class="item-qty">grande quantité</span></div>
+
+    <button class="reset-btn" onclick="reset()">Tout décocher</button>
+  </div>
+
+  <script>
+    const KEY = 'courses-foie-gras-mi-cuit';
+    const rows = document.querySelectorAll('.item-row');
+
+    function save() {
+      const checked = Array.from(rows).map(r => r.classList.contains('checked'));
+      try { localStorage.setItem(KEY, JSON.stringify(checked)); } catch(e) {}
+    }
+    function load() {
+      try {
+        const data = JSON.parse(localStorage.getItem(KEY));
+        if (Array.isArray(data)) data.forEach((v, i) => { if (v && rows[i]) rows[i].classList.add('checked'); });
+      } catch(e) {}
+    }
+    function toggle(row) { row.classList.toggle('checked'); save(); }
+    function reset() { rows.forEach(r => r.classList.remove('checked')); save(); }
+    load();
+  </script>
+</body>
+</html>
